@@ -27,3 +27,7 @@ Clean architecture - Work in progress
 ### Prisma
 1. Run `npx prisma migrate dev
 2. Run `npx prisma studio
+
+### Attention
+- This project is still in development
+- The private and public keys are included in the repository for testing purposes only. In a real project, they should be kept secret.

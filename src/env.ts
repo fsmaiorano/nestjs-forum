@@ -4,7 +4,8 @@ export const envSchema = z.object({
   NODE_ENV: z.string().default('development'),
   PORT: z.coerce.number().optional().default(3333),
   DATABASE_URL: z.string().url(),
-  // .default('postgres://postgres:postgres@localhost:5432/postgres'),
+  JWT_PRIVATE_KEY: z.string(),
+  JWT_PUBLIC_KEY: z.string(),
   //   CORS_ORIGIN: z.string().default('http://localhost:3000'),
 });
 
