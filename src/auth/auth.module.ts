@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { Env } from 'src/env';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
@@ -28,5 +29,8 @@ import { Env } from 'src/env';
       },
     }),
   ],
+  providers: [JwtStrategy],
 })
 export class AuthModule {}
+
+// Private key: is only known by the server and is used to sign the JWT (create new tokens).

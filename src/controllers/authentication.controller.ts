@@ -18,6 +18,8 @@ const authenticationBodySchema = z.object({
 
 type authenticationBodySchema = z.infer<typeof authenticationBodySchema>;
 
+const validationPipe = new ZodValidationPipe(authenticationBodySchema);
+
 @Controller('/sessions')
 export class AuthenticationController {
   constructor(
@@ -26,7 +28,7 @@ export class AuthenticationController {
   ) {}
 
   @Post()
-  @UsePipes(new ZodValidationPipe(authenticationBodySchema))
+  @UsePipes(validationPipe)
   async handle(@Body() body: authenticationBodySchema) {
     const { email, password } = body;
 
