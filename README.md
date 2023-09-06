@@ -18,6 +18,9 @@ The implementation between the Api and the rest of the application is built with
 - Supertest
 - JWT
 - Bcrypt
+- Lint
+- Passport-JWT
+- Zod
 
 ## How to run
 
