@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { Algorithm } from './../../node_modules/@types/jsonwebtoken/index.d';
+import { Algorithm } from 'jsonwebtoken';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { Env } from '@/env';
 import { z } from 'zod';
+import { Env } from '../env';
 
 const userPayload = z.object({
   sub: z.string(),
