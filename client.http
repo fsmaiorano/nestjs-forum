@@ -33,5 +33,11 @@ Content-Type: application/json
     "content": "Question content"
 }
 
+###
+# @name GetRecentQuestions
+GET {{baseUrl}}/questions?page=1
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
 
 
