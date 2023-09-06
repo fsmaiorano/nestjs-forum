@@ -3,7 +3,7 @@ import { Algorithm } from './../../node_modules/@types/jsonwebtoken/index.d';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { Env } from 'src/env';
+import { Env } from '@/env';
 import { z } from 'zod';
 
 const userPayload = z.object({
