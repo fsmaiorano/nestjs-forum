@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Post,
@@ -6,10 +7,11 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { compare } from 'bcryptjs';
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe';
-import { PrismaService } from '@/infra/database/prisma/prisma.service';
 import { z } from 'zod';
+import { AuthenticateStudentUseCase } from '@/domain/forum/application/use-cases/authenticate-student';
+import { WrongCredentialsError } from '@/domain/forum/application/use-cases/errors/wrong-credentials-error';
+import { Public } from '@/infra/auth/public';
 
 const authenticationBodySchema = z.object({
   email: z.string().email(),
@@ -21,10 +23,11 @@ type authenticationBodySchema = z.infer<typeof authenticationBodySchema>;
 const validationPipe = new ZodValidationPipe(authenticationBodySchema);
 
 @Controller('/sessions')
+@Public()
 export class AuthenticationController {
   constructor(
     private jwt: JwtService,
-    private prisma: PrismaService,
+    private authenticateStudent: AuthenticateStudentUseCase,
   ) {}
 
   @Post()
@@ -32,25 +35,28 @@ export class AuthenticationController {
   async handle(@Body() body: authenticationBodySchema) {
     const { email, password } = body;
 
-    const user = await this.prisma.user.findUnique({
-      where: {
-        email,
-      },
+    const result = await this.authenticateStudent.execute({
+      email,
+      password,
     });
 
-    if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
+    if (result.isLeft()) {
+      const error = result.value;
+
+      switch (error.constructor) {
+        case WrongCredentialsError:
+          throw new UnauthorizedException(error.message);
+        default:
+          throw new BadRequestException(error.message);
+      }
     }
 
-    const isPasswordValid = await compare(password, user.password);
+    console.log(result.value);
 
-    if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid credentials');
-    }
+    const { access_token } = result.value;
 
-    const accessToken = this.jwt.sign({ sub: user.id });
     return {
-      access_token: accessToken,
+      access_token,
     };
   }
 }
