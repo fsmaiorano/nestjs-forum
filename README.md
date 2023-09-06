@@ -1,13 +1,23 @@
 ## About
 
-This is a simple project that simulates a forum system. It is built with NodeJS.
+This is a simple project that simulates a forum system. It is built with NestJS.
 
 ## Architecture
-Clean architecture - Work in progress
+Clean architecture is used to separate the application into layers. The layers are as follows: application, domain, and infrastructure. The application layer contains use-cases and all core implementations. The domain layer contains the business logic and models. The infrastructure layer contains the database context and migrations.
+
+The implementation between the Api and the rest of the application is built with CQRS (Command and Query Responsibility Segregation), a pattern that separates read and update operations for a data store.
 
 ## Technologies Used
+- NestJS
 - NodeJS
 - Typescript
+- Postgres
+- Prisma
+- Docker
+- Vitest
+- Supertest
+- JWT
+- Bcrypt
 
 ## How to run
 
