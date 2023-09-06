@@ -8,13 +8,13 @@ import dayjs from 'dayjs';
 
 export interface IQuestion {
   authorId: string;
-  bestAnswerId?: UniqueEntityId;
+  bestAnswerId?: UniqueEntityId | null;
   attachments: QuestionAttachmentList;
   title: string;
   content: string;
   slug: Slug;
   createdAt: Date;
-  updatedAt?: Date;
+  updatedAt?: Date | null;
 }
 
 export class Question extends AggregateRoot<IQuestion> {
@@ -23,7 +23,7 @@ export class Question extends AggregateRoot<IQuestion> {
   }
 
   get bestAnswerId() {
-    return this.props.bestAnswerId;
+    return this.props.bestAnswerId ?? null;
   }
 
   get attachments() {
@@ -35,7 +35,7 @@ export class Question extends AggregateRoot<IQuestion> {
     this.touch();
   }
 
-  set bestAnswerId(bestAnswerId: UniqueEntityId | undefined) {
+  set bestAnswerId(bestAnswerId: UniqueEntityId | undefined | null) {
     if (bestAnswerId && bestAnswerId !== this.props.bestAnswerId) {
       this.addDomainEvent(
         new QuestionBestQuestionChoosenEvent(this, bestAnswerId),
