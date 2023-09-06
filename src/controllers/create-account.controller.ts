@@ -1,7 +1,6 @@
-import { ConflictException, UseGuards, UsePipes } from '@nestjs/common';
+import { ConflictException, UsePipes } from '@nestjs/common';
 import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { hash } from 'bcryptjs';
-import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
 import { ZodValidationPipe } from '@/pipes/zod-validation-pipe';
 import { PrismaService } from '@/prisma/prisma.service';
 import { z } from 'zod';
@@ -17,7 +16,6 @@ type CreateAccountBodyScheme = z.infer<typeof createAccountBodySchema>;
 const validationPipe = new ZodValidationPipe(createAccountBodySchema);
 
 @Controller('/accounts')
-@UseGuards(JwtAuthGuard)
 export class CreateAccountController {
   constructor(private prisma: PrismaService) {}
 

@@ -18,7 +18,7 @@
     "test:cov": "vitest run --coverage",
     "test:debug": "vitest run --inspect-brk inspect --logHeapUsage --threads=false",
     "test:debug:watch": "vitest run --debug --watch",
-    "test:e2e" : "vitest run --config ./vitest.config.e2e.ts"
+    "test:e2e": "vitest run --config ./vitest.config.e2e.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",

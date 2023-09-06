@@ -23,6 +23,8 @@ Clean architecture - Work in progress
 4. Run `npm run start:dev
 
 ## How to run tests
+1. Run `npm run test
+2. Run `npm run test:2e2
 
 ### Prisma
 1. Run `npx prisma migrate dev
@@ -30,4 +32,5 @@ Clean architecture - Work in progress
 
 ### Attention
 - This project is still in development
+- The .env file is included in the repository for testing purposes only. In a real project, it should be kept secret.
 - The private and public keys are included in the repository for testing purposes only. In a real project, they should be kept secret.
