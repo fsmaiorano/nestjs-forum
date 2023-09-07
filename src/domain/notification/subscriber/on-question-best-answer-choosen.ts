@@ -15,7 +15,7 @@ export class OnQuestionBestAnswerChoosen implements EventHandler {
   setupSubscriptions(): void {
     DomainEvents.register(
       this.sendQuestionBestAnswerNotification.bind(this),
-      OnQuestionBestAnswerChoosen.name,
+      QuestionBestQuestionChoosenEvent.name,
     );
   }
 
@@ -32,6 +32,7 @@ export class OnQuestionBestAnswerChoosen implements EventHandler {
     );
 
     if (answer) {
+      console.log('sendQuestionBestAnswerNotification - answer found');
       await this.sendNotificationUseCase.execute({
         recipientId: answer.authorId.toString(),
         title: `Your question has been choosen`,

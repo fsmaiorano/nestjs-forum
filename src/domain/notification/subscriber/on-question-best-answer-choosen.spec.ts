@@ -1,4 +1,8 @@
-import { SendNotificationUseCase } from './../application/use-cases/send-notification';
+import {
+  SendNotificationUseCase,
+  SendNotificationUseCaseRequest,
+  SendNotificationUseCaseResponse,
+} from './../application/use-cases/send-notification';
 import { InMemoryQuestionAttachmentRepository } from 'test/repositories/in-memory-question-attachments-repository';
 import { InMemoryAnswerRepository } from 'test/repositories/in-memory-answer-repository';
 import { makeAnswer } from 'test/factories/make-answer';
@@ -7,6 +11,8 @@ import { InMemoryNotificationRepository } from 'test/repositories/in-memory-noti
 import { makeQuestion } from 'test/factories/make-question';
 import { InMemoryAnswerAttachmentRepository } from 'test/repositories/in-memory-answer-attachment-repository';
 import { OnQuestionBestAnswerChoosen } from './on-question-best-answer-choosen';
+import { waitFor } from 'test/utils/wait-for';
+import { SpyInstance } from 'vitest';
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentRepository;
 let inMemoryQuestionsRepository: InMemoryQuestionRepository;
@@ -15,10 +21,10 @@ let inMemoryAnswersRepository: InMemoryAnswerRepository;
 let inMemoryNotificationsRepository: InMemoryNotificationRepository;
 let sendNotificationUseCase: SendNotificationUseCase;
 
-// let sendNotificationExecuteSpy: SpyInstance<
-//   [SendNotificationUseCaseRequest],
-//   Promise<SendNotificationUseCaseResponse>
-// >;
+let sendNotificationExecuteSpy: SpyInstance<
+  [SendNotificationUseCaseRequest],
+  Promise<SendNotificationUseCaseResponse>
+>;
 
 describe('On Question Best Answer Chosen', () => {
   beforeEach(() => {
@@ -37,7 +43,7 @@ describe('On Question Best Answer Chosen', () => {
       inMemoryNotificationsRepository,
     );
 
-    // sendNotificationExecuteSpy = vi.spyOn(sendNotificationUseCase, 'execute');
+    sendNotificationExecuteSpy = vi.spyOn(sendNotificationUseCase, 'execute');
 
     new OnQuestionBestAnswerChoosen(
       inMemoryAnswersRepository,
@@ -56,8 +62,8 @@ describe('On Question Best Answer Chosen', () => {
 
     inMemoryQuestionsRepository.save(question);
 
-    // await waitFor(() => {
-    //   expect(sendNotificationExecuteSpy).toHaveBeenCalled();
-    // });
+    await waitFor(() => {
+      expect(sendNotificationExecuteSpy).toHaveBeenCalled();
+    });
   });
 });
