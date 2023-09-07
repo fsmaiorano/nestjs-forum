@@ -37,8 +37,8 @@ describe('Authenticate Student', () => {
     });
 
     expect(result.isRight()).toBe(true);
-    // expect(result.value).toEqual({
-    //   accessToken: expect.any(String),
-    // });
+    expect(result.value).toEqual({
+      access_token: expect.any(String),
+    });
   });
 });

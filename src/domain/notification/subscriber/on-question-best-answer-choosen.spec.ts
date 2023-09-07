@@ -1,16 +1,10 @@
-import {
-  SendNotificationUseCase,
-  SendNotificationUseCaseRequest,
-  SendNotificationUseCaseResponse,
-} from './../application/use-cases/send-notification';
+import { SendNotificationUseCase } from './../application/use-cases/send-notification';
 import { InMemoryQuestionAttachmentRepository } from 'test/repositories/in-memory-question-attachments-repository';
 import { InMemoryAnswerRepository } from 'test/repositories/in-memory-answer-repository';
 import { makeAnswer } from 'test/factories/make-answer';
 import { InMemoryQuestionRepository } from 'test/repositories/in-memory-question-repository';
 import { InMemoryNotificationRepository } from 'test/repositories/in-memory-notification-repository';
 import { makeQuestion } from 'test/factories/make-question';
-import { waitFor } from 'test/utils/wait-for';
-import { SpyInstance } from 'vitest';
 import { InMemoryAnswerAttachmentRepository } from 'test/repositories/in-memory-answer-attachment-repository';
 import { OnQuestionBestAnswerChoosen } from './on-question-best-answer-choosen';
 
@@ -21,10 +15,10 @@ let inMemoryAnswersRepository: InMemoryAnswerRepository;
 let inMemoryNotificationsRepository: InMemoryNotificationRepository;
 let sendNotificationUseCase: SendNotificationUseCase;
 
-let sendNotificationExecuteSpy: SpyInstance<
-  [SendNotificationUseCaseRequest],
-  Promise<SendNotificationUseCaseResponse>
->;
+// let sendNotificationExecuteSpy: SpyInstance<
+//   [SendNotificationUseCaseRequest],
+//   Promise<SendNotificationUseCaseResponse>
+// >;
 
 describe('On Question Best Answer Chosen', () => {
   beforeEach(() => {
@@ -43,7 +37,7 @@ describe('On Question Best Answer Chosen', () => {
       inMemoryNotificationsRepository,
     );
 
-    sendNotificationExecuteSpy = vi.spyOn(sendNotificationUseCase, 'execute');
+    // sendNotificationExecuteSpy = vi.spyOn(sendNotificationUseCase, 'execute');
 
     new OnQuestionBestAnswerChoosen(
       inMemoryAnswersRepository,

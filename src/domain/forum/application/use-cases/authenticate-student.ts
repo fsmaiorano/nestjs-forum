@@ -42,12 +42,10 @@ export class AuthenticateStudentUseCase {
       return left(new WrongCredentialsError());
     }
 
-    console.log(this.encrypter);
-    console.log(this.hashComparer);
-
     const accessToken = await this.encrypter.encrypt({
-      id: student.id.toString,
+      id: student.id,
       name: student.name,
+      email: student.email,
     });
 
     return right({ access_token: accessToken });
