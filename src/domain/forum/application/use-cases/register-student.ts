@@ -43,6 +43,8 @@ export class RegisterStudentUseCase {
       password: hashedPassword,
     });
 
+    await this.studentRepository.create(student);
+
     return right({ student });
   }
 }
